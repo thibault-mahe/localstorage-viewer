@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<title>Localstorage Viewer</title>
+
+	<meta charset="utf-8">
+
+	<style>
+		table {
+			table-layout: fixed;
+			width: 100%;
+			word-wrap: break-word;
+			margin: 30px 0;
+			border-collapse: collapse;
+			border-spacing: 0px;
+		}
+		td, th {
+			border: 1px solid black;
+			padding: 10px;
+		}
+		th {
+		  width: 200px;
+		}
+		th+th {
+		  width: auto;
+		}
+		th+th+th {
+		  width: 150px;
+		}
+		code {
+			width: 100%;
+			padding: 2px 4px;
+			font-size: 90%;
+			color: #C7254E;
+			background-color: #F9F2F4;
+			border-radius: 4px;
+		}
+		.btn {
+			border: 0px none;
+			padding: 12px 30px;
+			margin: 10px;
+			border-radius: 0px;
+			font-size: 14px;
+			text-transform: uppercase;
+			transition: background-color 0.2s ease-out 0s;
+			display: inline-block;
+			font-weight: normal;
+			text-align: center;
+			vertical-align: middle;
+			cursor: pointer;
+			background-image: none;
+			white-space: nowrap;
+			line-height: 1.42857;
+			-moz-user-select: none;
+			color: #FFF;
+			background-color: #D74D4D;
+			border-color: #D23838;
+		}
+		.btn:hover {
+			color: #FFF;
+			background-color: #C52C2C;
+			border-color: #A82626;
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+	<section>
+			<h1>Local Storage</h1>
+
+			<table id="insert-here">
+				<tr>
+					<th>Key</th>
+					<th>Value</th>
+					<th> </th>
+				</tr>
+			</table>
+			
+	</section>
+
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script>
+		$(function () {
+			console.log(localStorage);
+			for (var item in localStorage){
+				var itemContent = String(localStorage[item]).replace(/</g, "&lt;");
+				$("#insert-here").append('<tr><td>' + item + '</td><td><code>' + itemContent + '</code></td><td><button data-item="' + item + '" class="btn btn-primary btn-storage">Delete</button></td></tr>');
+			}
+			$(".btn-storage").click(function (){
+				var itemToDelete = $(this).attr("data-item");
+				localStorage.removeItem(itemToDelete);
+				$(this).parent().parent("tr").fadeOut();
+			});
+		});
+
+	</script>
+
+</body>
+</html>
